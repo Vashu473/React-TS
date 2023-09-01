@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Box, Card, IconButton } from "@mui/material";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-const SliderWrapper = () => {
+const SliderWrapper = ({ children }) => {
+  const [slideIndex, setSlideIndex] = useState(0);
+
+  const prevSlide = () => {
+    setSlideIndex((prevIndex) =>
+      prevIndex === 0 ? children.length - 3 : prevIndex - 3
+    );
+  };
+
+  const nextSlide = () => {
+    setSlideIndex((prevIndex) =>
+      prevIndex >= children.length - 3 ? 0 : prevIndex + 3
+    );
+  };
+
   return (
     <Box
       sx={{
@@ -21,14 +35,14 @@ const SliderWrapper = () => {
       >
         <h2>Title</h2>
         <div>
-          <IconButton>
+          <IconButton onClick={prevSlide}>
             <ArrowCircleLeftIcon
               sx={{
                 fontSize: "30px",
               }}
             />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={nextSlide}>
             <ArrowCircleRightIcon
               sx={{
                 fontSize: "30px",
@@ -46,90 +60,14 @@ const SliderWrapper = () => {
           flexWrap: "nowrap",
         }}
       >
-        <Card
-          style={{
-            width: "250px",
-          }}
-        >
-          <h1>Hi Vashu</h1>
-        </Card>
-        <Card
-          style={{
-            width: "250px",
-          }}
-        >
-          <h1>Hi Vashu</h1>
-        </Card>
-        <Card
-          style={{
-            width: "250px",
-          }}
-        >
-          <h1>Hi Vashu</h1>
-        </Card>
-        <Card
-          style={{
-            width: "250px",
-          }}
-        >
-          <h1>Hi Vashu</h1>
-        </Card>
-        <Card
-          style={{
-            width: "250px",
-          }}
-        >
-          <h1>Hi Vashu</h1>
-        </Card>
-        <Card
-          style={{
-            width: "250px",
-          }}
-        >
-          <h1>Hi Vashu</h1>
-        </Card>
-        <Card
-          style={{
-            width: "250px",
-          }}
-        >
-          <h1>Hi Vashu</h1>
-        </Card>
-        <Card
-          style={{
-            width: "250px",
-          }}
-        >
-          <h1>Hi Vashu</h1>
-        </Card>
-        <Card
-          style={{
-            width: "250px",
-          }}
-        >
-          <h1>Hi Vashu</h1>
-        </Card>
-        <Card
-          style={{
-            width: "250px",
-          }}
-        >
-          <h1>Hi Vashu</h1>
-        </Card>
-        <Card
-          style={{
-            width: "250px",
-          }}
-        >
-          <h1>Hi Vashu</h1>
-        </Card>
-        <Card
-          style={{
-            width: "250px",
-          }}
-        >
-          <h1>Hi Vashu</h1>
-        </Card>
+        {React.Children.map(children, (child, index) => (
+          <div
+            key={index}
+            className={`slide ${index >= 0 && index < 0 + 3 ? "active" : ""}`}
+          >
+            {child}
+          </div>
+        ))}
       </Box>
       <div className="ll"></div>
     </Box>
