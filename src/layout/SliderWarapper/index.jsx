@@ -3,37 +3,30 @@ import "./style.css";
 import { Box, Card, IconButton } from "@mui/material";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-const SliderWrapper = ({ children }) => {
+const SliderWrapper = ({ children, title, noOfCards = 3 }) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const prevSlide = () => {
     setSlideIndex((prevIndex) =>
-      prevIndex === 0 ? children.length - 3 : prevIndex - 3
+      prevIndex === 0 ? children.length - noOfCards : prevIndex - noOfCards
     );
   };
 
   const nextSlide = () => {
     setSlideIndex((prevIndex) =>
-      prevIndex >= children.length - 3 ? 0 : prevIndex + 3
+      prevIndex >= children.length - noOfCards ? 0 : prevIndex + noOfCards
     );
   };
 
   return (
-    <Box
-      sx={{
-        margin: "20px auto",
-        width: "90%",
-        padding: "10px",
-        overflow: "hidden",
-      }}
-    >
+    <Box className="c-c">
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
         }}
       >
-        <h2>Title</h2>
+        <h2>{title}</h2>
         <div>
           <IconButton onClick={prevSlide}>
             <ArrowCircleLeftIcon
@@ -63,7 +56,11 @@ const SliderWrapper = ({ children }) => {
         {React.Children.map(children, (child, index) => (
           <div
             key={index}
-            className={`slide ${index >= 0 && index < 0 + 3 ? "active" : ""}`}
+            className={`slide ${
+              index >= slideIndex && index < slideIndex + noOfCards
+                ? "active"
+                : ""
+            }`}
           >
             {child}
           </div>

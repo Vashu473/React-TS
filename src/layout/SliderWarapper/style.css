@@ -17,3 +17,10 @@
 .active {
   display: block;
 }
+
+.c-c {
+  margin: 20px auto;
+  width: 90%;
+  padding: 10px;
+  overflow: hidden;
+}
